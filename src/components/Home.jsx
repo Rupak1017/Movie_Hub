@@ -42,11 +42,11 @@ function Home() {
   return wallpaper && trending ? (
     <>
       <Sidenav />
-      <div className="w-[80%] h-full overflow-auto overflow-x-hidden ">
+      <div className="w-[83%] h-full overflow-auto overflow-x-hidden ">
         <Topnav />
         <Header data={wallpaper} />
 
-        <div className=" flex justify-between p-5">
+        <div className=" flex justify-between p-3 mt-3 ml-3">
           <h1 className="text-3xl font-seminold text-zinc-400">Trending</h1>
 
           <Dropdown
