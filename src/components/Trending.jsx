@@ -14,7 +14,7 @@ function Trending() {
   const [trending, setTrending] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  document.title = "SCSDB | Trending "
+  document.title = "MovieHub | Trending "
 
   const GetTrending = async () => {
     try {

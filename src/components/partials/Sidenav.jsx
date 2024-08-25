@@ -6,7 +6,7 @@ function Sidenav() {
     <div className="w-[20%] h-full border-r-2 border-zinc-400 p-3 overflow-auto ">
       <h1 className="text-2xl text-white font-bold ">
         <i className="text-[#6556cd] ri-tv-fill mr-2 "></i>
-        <span className="text-2xl ">SCSDB</span>
+        <span className="text-2xl ">MovieHub</span>
       </h1>
       <nav className="flex flex-col text-zinc-400 text-xl gap-3 ">
         <h1 className="text-white font-semibold text-xl mt-10 mb-5 ">
@@ -42,7 +42,7 @@ function Sidenav() {
         </h1>
         <Link className="hover:bg-[#6556cd] hover:text-white duration-300 rounded-lg p-5  ">
           <i className="mr-2 ri-information-2-fill"></i>
-          About SCSDB
+          About MovieHub
         </Link>
         <Link className="hover:bg-[#6556cd] hover:text-white duration-300 rounded-lg p-5  ">
           <i className="mr-2 ri-phone-fill"></i>

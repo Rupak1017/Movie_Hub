@@ -8,7 +8,7 @@ import Loading from "./Loading";
 import Dropdown from "./partials/Dropdown";
 
 function Home() {
-  document.title = "SCSDB | Homepage";
+  document.title = "MovieHub | Homepage";
 
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending] = useState(null);

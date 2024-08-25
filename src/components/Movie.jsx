@@ -13,7 +13,7 @@ function Movie() {
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  document.title = "SCSDB | Movies "
+  document.title = "MovieHub | Movies "
 
 
   const GetMovie = async () => {

@@ -13,7 +13,7 @@ function Tvshows() {
   const [tv, setTv] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  document.title = "SCSDB | Tv Shows "
+  document.title = "MovieHub | Tv Shows "
 
 
   const GetTv = async () => {
