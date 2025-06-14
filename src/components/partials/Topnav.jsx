@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { Link } from "react-router-dom";
 import useDebounce from "../../hooks/useDebounce";
-import noimage from "/noimage.webp";
+const noimage = "/noimage.webp"; // ✅ simple string reference
+
 
 function Topnav() {
   const [query, setQuery] = useState("");

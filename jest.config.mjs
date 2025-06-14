@@ -149,6 +149,10 @@ const config = {
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
 
+  moduleNameMapper: {
+  "\\.(jpg|jpeg|png|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
+},
+
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
 

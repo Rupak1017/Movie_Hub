@@ -1,5 +1,6 @@
 import React from 'react'
-import loader from '/loader.webp'
+const loader = "/loader.webp";
+
 
 function Loading() {
   return (
