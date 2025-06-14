@@ -1,5 +1,7 @@
+// src/components/partials/Cards.jsx
 import React from "react";
 import { Link } from "react-router-dom";
+import LazyImage from "./LazyImage";
 
 function Cards({ data, title }) {
   return (
@@ -10,15 +12,18 @@ function Cards({ data, title }) {
           className="relative w-[25vh] mr-[5%] mb-[5%]"
           key={i}
         >
-          <img
+          <LazyImage
             className="shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] h-[40vh] object-cover"
             src={
               c.poster_path || c.backdrop_path || c.profile_path
-                ? `https://image.tmdb.org/t/p/original/${c.poster_path || c.backdrop_path || c.profile_path}`
-                : "/noimage.webp" // ✅ public path, no import needed
+                ? `https://image.tmdb.org/t/p/original/${
+                    c.poster_path || c.backdrop_path || c.profile_path
+                  }`
+                : "/noimage.webp"
             }
-            alt="poster"
+            alt={c.title || c.name || ""}
           />
+
           <h1 className="text-2xl text-zinc-200 mt-3 font-semibold">
             {c.name || c.title || c.original_name || c.original_title}
           </h1>
