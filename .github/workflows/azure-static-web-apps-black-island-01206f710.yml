@@ -10,7 +10,19 @@ on:
       - main
 
 jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    name: Run Unit Tests
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test -- --watchAll=false
+
   build_and_deploy_job:
+    needs: run_tests     # 👈 Waits for tests to pass
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
@@ -27,9 +39,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ISLAND_01206F710 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"              # ✅ Your main app root (not /src)
-          api_location: ""               # ✅ Empty if you're not using Azure Functions
-          output_location: "dist"        # ✅ Default for Vite. Use "build" for CRA
+          app_location: "/"              
+          api_location: ""               
+          output_location: "dist"       
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
