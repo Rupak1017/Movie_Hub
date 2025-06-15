@@ -148,6 +148,7 @@ const config = {
 
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
 
   moduleNameMapper: {
   "\\.(jpg|jpeg|png|webp|svg)$": "<rootDir>/__mocks__/fileMock.js"
