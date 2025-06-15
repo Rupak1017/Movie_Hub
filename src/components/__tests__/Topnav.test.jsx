@@ -26,7 +26,7 @@ describe('Topnav Component', () => {
     // no search links at start
     expect(screen.queryByRole('link')).toBeNull();
     // input is there
-    expect(screen.getByPlaceholderText(/search anything/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Search Movies/i)).toBeInTheDocument();
   });
 
   it('fetches and displays results when typing', async () => {
@@ -42,7 +42,7 @@ describe('Topnav Component', () => {
       </MemoryRouter>
     );
 
-    const input = screen.getByPlaceholderText(/search anything/i);
+    const input = screen.getByPlaceholderText(/Search Movies/i);
     fireEvent.change(input, { target: { value: 'hello' } });
 
     // wait for the API call
@@ -75,7 +75,7 @@ describe('Topnav Component', () => {
       </MemoryRouter>
     );
 
-    const input = screen.getByPlaceholderText(/search anything/i);
+    const input = screen.getByPlaceholderText(/Search Movies/i);
     fireEvent.change(input, { target: { value: 'abc' } });
 
     // wait for link to appear

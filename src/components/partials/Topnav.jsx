@@ -34,7 +34,7 @@ function Topnav() {
       <i className="text-3xl text-zinc-400 ri-search-line" />
       <input
         type="text"
-        placeholder="search anything"
+        placeholder="Search Movies"
         value={query}
         onChange={e => setQuery(e.target.value)}
         className="w-[50%] text-white mx-10 text-xl p-5 outline-none bg-transparent"
