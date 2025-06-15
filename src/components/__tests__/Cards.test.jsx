@@ -12,7 +12,7 @@ describe('Cards Component', () => {
       </MemoryRouter>
     );
     // Expect no crash, no items
-    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocumen();
   });
 
   test('renders one card with title and vote average', () => {
