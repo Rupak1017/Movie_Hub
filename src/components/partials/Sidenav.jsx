@@ -18,7 +18,7 @@ function Sidenav() {
         </Link>
         <Link to='/popular' className="hover:bg-[#6556cd] hover:text-white duration-300 rounded-lg p-4  ">
           <i className="mr-2 ri-bard-fill"></i>
-          Popularss
+          Popular
         </Link>
         <Link to='movie' className="hover:bg-[#6556cd] hover:text-white duration-300 rounded-lg p-4  ">
           <i className="mr-2 ri-movie-2-fill"></i>
