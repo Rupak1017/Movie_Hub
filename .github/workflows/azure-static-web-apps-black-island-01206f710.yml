@@ -1,48 +1,66 @@
+# ✅ Azure Static Web Apps CI/CD Workflow
+# This GitHub Actions workflow:
+# 1. Runs tests when you push or make a PR to `main`
+# 2. Deploys to Azure **only if tests pass**
+
 name: Azure Static Web Apps CI/CD
 
+# 🔁 Trigger workflow on:
 on:
   push:
     branches:
-      - main
+      - main          # ← Only on push to the main branch
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - main
+      - main          # ← On pull requests targeting main
 
+# 🧪 Job 1: Run Unit Tests
 jobs:
   run_tests:
     runs-on: ubuntu-latest
     name: Run Unit Tests
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3     # ✅ Check out repo code
+
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci                   # ✅ Fast + clean install
 
       - name: Run Tests
         run: npm test -- --watchAll=false
+        # ⬆️ Run tests once (no watch mode). This will fail the job if any test fails.
 
+  # 🚀 Job 2: Build and Deploy (only if tests pass)
   build_and_deploy_job:
-    needs: run_tests     # 👈 Waits for tests to pass
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    needs: run_tests     # ✅ Don’t run unless tests succeed
+    if: github.event_name == 'push' || 
+        (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true
-          lfs: false
+          submodules: true            # ✅ If you use git submodules
+          lfs: false                  # Large File Storage – not needed here
 
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
+          # 🔐 Azure deployment token (from GitHub Secrets)
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ISLAND_01206F710 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/"              
-          api_location: ""               
-          output_location: "dist"       
 
+          # 🛡️ GitHub token for PR comments, checks, etc.
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+          action: "upload"            # 🔼 Upload and deploy the app
+
+          app_location: "/"           # 📁 Your app root 
+          api_location: ""            # Leave empty if not using Azure Functions
+          output_location: "dist"     
+
+  # ❌ Job 3: Close PR Deployment (optional)
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -53,4 +71,4 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLACK_ISLAND_01206F710 }}
-          action: "close"
+          action: "close"             # 🔐 Cleans up staging deployment when PR is closed
