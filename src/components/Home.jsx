@@ -53,6 +53,7 @@ function Home() {
         <div className="flex justify-between p-3 mt-3 ml-3">
           <h1 className="text-3xl font-seminold text-zinc-400">Trending</h1>
           <Dropdown
+         
             title="filter"
             options={["tv", "movie", "all"]}
             func={(e) => setCategory(e.target.value)}
