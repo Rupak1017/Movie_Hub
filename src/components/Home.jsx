@@ -13,6 +13,9 @@ const HorizontalCards = lazy(() => import("./partials/HorizontalCards"));
 function Home() {
   document.title = "MovieHub | Homepage";
 
+  // mobile side‐nav open state
+  const [isOpen, setIsOpen] = useState(false);
+
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending]   = useState(null);
   const [category, setCategory]   = useState("all");
@@ -22,14 +25,18 @@ function Home() {
       const { data } = await axios.get(`/trending/all/day`);
       const i         = Math.floor(Math.random() * data.results.length);
       setWallpaper(data.results[i]);
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const fetchTrending = async () => {
     try {
       const { data } = await axios.get(`/trending/${category}/day`);
       setTrending(data.results);
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -37,30 +44,37 @@ function Home() {
     if (!wallpaper) fetchHeader();
   }, [category]);
 
-  // still show your Loading component until both calls finish
   if (!wallpaper || !trending) {
     return <Loading />;
   }
 
-  // everything inside this Suspense uses the exact same markup
   return (
     <Suspense fallback={null}>
-      <Sidenav />
-      <div className="w-[83%] h-full overflow-auto overflow-x-hidden ">
-        <Topnav />
-        <Header data={wallpaper} />
+      <div className="flex h-full w-full overflow-x-hidden">
+        <Sidenav isOpen={isOpen} />
 
-        <div className="flex justify-between p-3 mt-3 ml-3">
-          <h1 className="text-3xl font-seminold text-zinc-400">Trending</h1>
-          <Dropdown
-         
-            title="filter"
-            options={["tv", "movie", "all"]}
-            func={(e) => setCategory(e.target.value)}
-          />
+        <div className="flex-1 min-w-0 flex flex-col">
+          <Topnav isOpen={isOpen} setIsOpen={setIsOpen} />
+
+          <div className="flex-shrink-0">
+            <Header data={wallpaper} />
+          </div>
+
+          <div className="flex-1 overflow-auto">
+            {/* Trending + filter: row on mobile, smaller text + dropdown */}
+            <div className="flex flex-row items-center justify-between p-3 mt-3 ml-3 space-x-4 md:flex-row md:space-x-0 md:justify-between md:ml-3">
+              <h1 className="text-xl md:text-3xl font-seminold text-zinc-400">
+                Trending
+              </h1>
+              <Dropdown
+                title="filter"
+                options={["tv", "movie", "all"]}
+                func={(e) => setCategory(e.target.value)}
+              />
+            </div>
+            <HorizontalCards data={trending} />
+          </div>
         </div>
-
-        <HorizontalCards data={trending} />
       </div>
     </Suspense>
   );
