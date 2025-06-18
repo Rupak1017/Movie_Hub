@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { Link } from "react-router-dom";
 import useDebounce from "../../hooks/useDebounce";
+
 const noimage = "/noimage.webp";
 
 function Topnav({ isOpen, setIsOpen, hideBurger = false }) {
@@ -17,7 +18,9 @@ function Topnav({ isOpen, setIsOpen, hideBurger = false }) {
         return;
       }
       try {
-        const { data } = await axios.get(`/search/multi?query=${debouncedQuery}`);
+        const { data } = await axios.get(
+          `/search/multi?query=${debouncedQuery}`
+        );
         setSearches(data.results);
       } catch (e) {
         console.error(e);
@@ -27,7 +30,13 @@ function Topnav({ isOpen, setIsOpen, hideBurger = false }) {
   }, [debouncedQuery]);
 
   return (
-    <div className="w-[80%] h-[10vh] relative flex items-center mx-auto max-md:w-full max-md:px-4">
+    <div
+      className="
+        w-[80%] h-[10vh] relative flex items-center mx-auto
+        my-4 md:my-0
+        max-md:w-full max-md:px-4
+      "
+    >
       {/* mobile‐only burger, hidden when hideBurger=true */}
       {!hideBurger && (
         <button
@@ -68,12 +77,14 @@ function Topnav({ isOpen, setIsOpen, hideBurger = false }) {
 
       {/* results dropdown */}
       {debouncedQuery && (
-        <div className="
+        <div
+          className="
             absolute top-full left-0
             w-full md:w-[50%] md:left-[5%]
             bg-zinc-200 max-h-[50vh] overflow-auto
             rounded-md shadow-lg mt-1 z-50
-          ">
+          "
+        >
           {searches.map((s, i) => (
             <Link
               key={i}
@@ -87,9 +98,8 @@ function Topnav({ isOpen, setIsOpen, hideBurger = false }) {
               <img
                 src={
                   s.backdrop_path || s.profile_path
-                    ? `https://image.tmdb.org/t/p/original/${
-                        s.backdrop_path || s.profile_path
-                      }`
+                    ? `https://image.tmdb.org/t/p/original/${s.backdrop_path ||
+                        s.profile_path}`
                     : noimage
                 }
                 alt=""

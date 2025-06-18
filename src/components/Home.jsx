@@ -22,8 +22,8 @@ function Home() {
 
   const fetchHeader = async () => {
     try {
-      const { data } = await axios.get(`/trending/all/day`);
-      const i         = Math.floor(Math.random() * data.results.length);
+      const { data } = await axios.get("/trending/all/day");
+      const i = Math.floor(Math.random() * data.results.length);
       setWallpaper(data.results[i]);
     } catch (e) {
       console.error(e);
@@ -50,20 +50,23 @@ function Home() {
 
   return (
     <Suspense fallback={null}>
-      <div className="flex h-full w-full overflow-x-hidden">
-        <Sidenav isOpen={isOpen} />
+      {/* Outer wrapper is full-screen height and scrolls vertically */}
+      <div className="flex h-screen w-full overflow-x-hidden overflow-y-auto">
+        <Sidenav isOpen={isOpen} setIsOpen={setIsOpen} />
 
         <div className="flex-1 min-w-0 flex flex-col">
           <Topnav isOpen={isOpen} setIsOpen={setIsOpen} />
 
+          {/* Header stays at top; scroll begins below */}
           <div className="flex-shrink-0">
             <Header data={wallpaper} />
           </div>
 
-          <div className="flex-1 overflow-auto">
-            {/* Trending + filter: row on mobile, smaller text + dropdown */}
-            <div className="flex flex-row items-center justify-between p-3 mt-3 ml-3 space-x-4 md:flex-row md:space-x-0 md:justify-between md:ml-3">
-              <h1 className="text-xl md:text-3xl font-seminold text-zinc-400">
+          {/* This section fills the rest of the page height but does NOT trap scroll */}
+          <div className="flex-1">
+            {/* Trending + filter */}
+            <div className="flex items-center justify-between p-3 mt-3 ml-3 space-x-4 md:space-x-0 md:justify-between">
+              <h1 className="text-xl md:text-3xl font-semibold text-zinc-400">
                 Trending
               </h1>
               <Dropdown
