@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MovieHub | Movie Streamin App</title>
+  <meta
+    name="description"
+    content="MovieHub :- browse and stream trending movies, TV shows, and trailers from The Movie Database."
+ />
+    <title>MovieHub | Movie Streaming App</title>
+
+    <!-- Preconnect to CDN -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- Main stylesheet (could contain your critical+non-critical CSS) -->
+    <link rel="stylesheet" href="/styles/main.css" />
+
+    <!-- Async-load remixicon CSS -->
     <link
-    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
-    rel="stylesheet"
-/>
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Module scripts are deferred by default; explicit defer is safe -->
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>
